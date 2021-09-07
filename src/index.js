@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+//import App from './App';
 import reportWebVitals from './reportWebVitals';
-import Element from './components/element';
+import App from './components/App';
 
 
 ReactDOM.render(
-  <Element/>,
+  <App per={'griovį'} />,
   document.getElementById('root')
 );
 

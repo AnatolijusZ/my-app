@@ -4,13 +4,13 @@ import './index.scss';
 //import App from './App';
 import reportWebVitals from './reportWebVitals';
 import App from './components/App';
-import NamuDarbas from './components/NamuDarbas';
+//import NamuDarbas from './components/NamuDarbas';
 import './css/layout.scss'
 
 
 ReactDOM.render(
-  <NamuDarbas/>,
-  //<App/>,
+  //<NamuDarbas/>,
+  <App/>,
   document.getElementById('root')
 );
 

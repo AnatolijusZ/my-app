@@ -1,13 +1,41 @@
-import Mygtukas from './Mygtukas';
+import React from 'react';
+import ChangeColor from './ChangeColor'
 
-const data = [['Spausk', 1], ['Spaudinek', 10], ['Klikink', 100]];
+class App extends React.Component {
 
-function App(props) {
+    constructor() {
+        super();
+        this.state = {bg: 'palegreen'}; 
+    };
+
+    changeColor = () => {
+   //     this.setState ({
+   //         bg: 'orangered',
+   //     });
+        this.setState(state => {
+            let color;
+            if (state.bg == 'palegreen') {
+                color = 'orangered';
+            }
+            else if (state.bg == 'orangered') {
+                color = 'palegreen'
+            }
+            return (
+                {bg: color}
+           // {bg: state.bg == 'palegreen' ? 'orangered' : 'palegreen'}  sutrumpintas if ciklas
+            )
+        });
+
+    }
+
+    render () {
     return ( <>
-
-        {data.map((b, i) => <Mygtukas key={i} tekstas={b[0]} amount={b[1]} />)}
-
-        
+        <div className="rutulys" style={{backgroundColor: this.state.bg}}>
+            
+            <ChangeColor clickToChangeColor={this.changeColor}></ChangeColor>
+        </div>        
     </>);
+    }
 }
-    export default App;
+
+export default App

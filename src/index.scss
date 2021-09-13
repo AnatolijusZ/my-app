@@ -18,6 +18,7 @@ body {
   display: flex;
   width: 100%;
   height: 100%;
+  justify-content: center;
   align-items: center;
   background-color: var(--feedback-primary-color);
 }
@@ -104,4 +105,34 @@ code {
   &.green {
     background-color: green;
   }
+}
+
+.bin {
+  margin: 20px;
+  padding: 10px;
+  border: 3px dotted orange;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+}
+
+.rutulys {
+
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+button {
+  border: none;
+  background-color: peachpuff;
+  padding: 7px;
+  font-size: 17px;
+  letter-spacing: 2px;
+  color: peru;
+  border-radius: 10px;
+  cursor: pointer;
 }

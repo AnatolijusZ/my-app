@@ -5,7 +5,7 @@ import './index.scss';
 import reportWebVitals from './reportWebVitals';
 import App from './components/App';
 //import NamuDarbas from './components/NamuDarbas';
-import './css/layout.scss'
+//import './css/layout.scss'
 
 
 ReactDOM.render(

@@ -5,34 +5,54 @@ class App extends React.Component {
 
     constructor() {
         super();
-        this.state = {bg: 'palegreen'}; 
+        this.state = {bg: 'palegreen',
+        in: 'Hello'
+    }; 
     };
 
-    changeColor = () => {
-   //     this.setState ({
-   //         bg: 'orangered',
-   //     });
-        this.setState(state => {
-            let color;
-            if (state.bg == 'palegreen') {
-                color = 'orangered';
-            }
-            else if (state.bg == 'orangered') {
-                color = 'palegreen'
-            }
-            return (
-                {bg: color}
-           // {bg: state.bg == 'palegreen' ? 'orangered' : 'palegreen'}  sutrumpintas if ciklas
-            )
-        });
+    changeColorP = () => {
+        this.setState ({
+            bg: 'palegreen',
 
+        })
+    }
+    changeColorO = () => {
+        this.setState ({
+            bg: 'orangered',
+        })
     }
 
+    changeColorG = () => {
+        this.setState ({
+            bg: 'greenyellow',
+        })
+    }
+
+    changeColor = (color) => {
+        this.setState ({
+            bg: color,
+        })
+    }
+    inChange = (e) => {
+        this.setState ({
+            in: e.target.value,
+        });
+    }
+
+    doColor = () => {
+        this.setState(state => ({bg: state.in}));
+    }
+   
     render () {
     return ( <>
         <div className="rutulys" style={{backgroundColor: this.state.bg}}>
             
-            <ChangeColor clickToChangeColor={this.changeColor}></ChangeColor>
+            <ChangeColor regNumber={23} color={'palegreen'} clickToChangeColor={this.changeColor}></ChangeColor>
+            <ChangeColor regNumber={84} color={'orangered'} clickToChangeColor={this.changeColor}></ChangeColor>
+            <ChangeColor regNumber={54} color={'greenyellow'} clickToChangeColor={this.changeColor}></ChangeColor>
+            
+            <input type="text" value={this.state.in} onChange={this.inChange}></input>
+            <button className="input-button" onClick={this.doColor}>Change Color</button>
         </div>        
     </>);
     }

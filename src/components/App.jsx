@@ -1,58 +1,50 @@
 import React from 'react';
-import ChangeColor from './ChangeColor'
+import SmallCow from './SmallCow';
+
 
 class App extends React.Component {
 
     constructor() {
         super();
-        this.state = {bg: 'palegreen',
-        in: 'Hello'
+        this.state = {
+            cows: [],
+            cowInput: ''
     }; 
     };
-
-    changeColorP = () => {
-        this.setState ({
-            bg: 'palegreen',
-
+    
+    addCow = (e) => {
+        const cow ={color:this.state.cowInput};
+        const cows = this.state.cows.slice()
+        cows.push(cow);
+        this.setState({
+            cows: cows
         })
+        localStorage.setItem('allCows', JSON.stringify(cows));
+        
     }
-    changeColorO = () => {
+    
+    cowInputHandler= (e) => {
         this.setState ({
-            bg: 'orangered',
-        })
-    }
-
-    changeColorG = () => {
-        this.setState ({
-            bg: 'greenyellow',
-        })
-    }
-
-    changeColor = (color) => {
-        this.setState ({
-            bg: color,
-        })
-    }
-    inChange = (e) => {
-        this.setState ({
-            in: e.target.value,
+            cowInput: e.target.value,
         });
     }
-
-    doColor = () => {
-        this.setState(state => ({bg: state.in}));
+    componentDidMount() {
+        const cows = JSON.parse(localStorage.getItem('allCows'));
+        if (null === cows) {
+            return;
+        }
+        this.setState({
+           cows: cows
+        })
     }
-   
+    
+
     render () {
     return ( <>
-        <div className="rutulys" style={{backgroundColor: this.state.bg}}>
-            
-            <ChangeColor regNumber={23} color={'palegreen'} clickToChangeColor={this.changeColor}></ChangeColor>
-            <ChangeColor regNumber={84} color={'orangered'} clickToChangeColor={this.changeColor}></ChangeColor>
-            <ChangeColor regNumber={54} color={'greenyellow'} clickToChangeColor={this.changeColor}></ChangeColor>
-            
-            <input type="text" value={this.state.in} onChange={this.inChange}></input>
-            <button className="input-button" onClick={this.doColor}>Change Color</button>
+       {this.state.cows.map((b, i) => <SmallCow key={i} color={b.color} />)}
+        <div>
+            <input type="text" value={this.state.cowInput} onChange={this.cowInputHandler}></input>
+            <button className="input-button" onClick={this.addCow}>Add Cow</button>
         </div>        
     </>);
     }

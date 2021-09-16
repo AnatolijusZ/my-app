@@ -1,5 +1,5 @@
 import React from 'react';
-import SmallCow from './SmallCow';
+import SmallAnimal from './SmallAnimal';
 
 
 class App extends React.Component {
@@ -7,21 +7,22 @@ class App extends React.Component {
     constructor() {
         super();
         this.state = {
-            cows: [],
+            animals: [],
             cowInput: ''
     }; 
     };
     
-    addCow = (e) => {
-        const cow ={color:this.state.cowInput};
-        const cows = this.state.cows.slice()
-        cows.push(cow);
+    addAnimal = (a) => {
+        const animal ={color: this.state.cowInput, animal: a};
+        const animals = this.state.animals.slice()
+        animals.push(animal);
         this.setState({
-            cows: cows
+            animals: animals
         })
-        localStorage.setItem('allCows', JSON.stringify(cows));
+        localStorage.setItem('allAnimals', JSON.stringify(animals));
         
     }
+    
     
     cowInputHandler= (e) => {
         this.setState ({
@@ -29,22 +30,23 @@ class App extends React.Component {
         });
     }
     componentDidMount() {
-        const cows = JSON.parse(localStorage.getItem('allCows'));
-        if (null === cows) {
+        const animals = JSON.parse(localStorage.getItem('allAnimals'));
+        if (null === animals) {
             return;
         }
         this.setState({
-           cows: cows
+            animals: animals
         })
     }
     
 
     render () {
     return ( <>
-       {this.state.cows.map((b, i) => <SmallCow key={i} color={b.color} />)}
+       {this.state.animals.map((b, i) => <SmallAnimal key={i} color={b.color} animal={b.animal} />)}
         <div>
             <input type="text" value={this.state.cowInput} onChange={this.cowInputHandler}></input>
-            <button className="input-button" onClick={this.addCow}>Add Cow</button>
+            <button className="input-button" onClick={() => this.addAnimal('cow')}>Add Cow</button>
+            <button className="input-button" onClick={() => this.addAnimal('sheep')}>Add Sheep</button>
         </div>        
     </>);
     }

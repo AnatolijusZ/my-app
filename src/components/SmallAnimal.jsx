@@ -6,7 +6,8 @@ function SmallAnimal(props) {
       {backgroundColor: props.color,
       borderRadius: props.animal == 'cow' ? '50%' : '5px'}
       }>
-      {props.color}
+      <span>{props.color}</span>
+      <button className="input-button-small" onClick={() => props.delete(props.id)}>KILL</button>
     </div>
     );
 }

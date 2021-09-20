@@ -12,13 +12,13 @@ class App extends React.Component {
     
     editText = (e) => {
         
-        const tekstas ={Tekstas: x};
-        const skaicius = this.state.skaicius.slice()
-        skaicius.push(x);
+        //const tekstas ={Tekstas: x};
+        //const skaicius = this.state.skaicius.slice()
+        //skaicius.push(x);
 
-        this.setState ((busena) => ({
-        x: state.x += 3
-        }));
+        this.setState  ({
+        x: this.state.x + 3
+        });
         localStorage.setItem('ButtonText', JSON.stringify(this.state.x));
     }
     

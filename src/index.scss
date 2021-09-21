@@ -192,3 +192,15 @@ button {
     }
   }
 }
+.field {
+    display: flex;
+    .farm {
+      width: 50%;
+      margin: 9%;
+      padding: 8%;
+      border: 4px dashed greenyellow;
+    }
+    h1 {
+      color: greenyellow;
+    }
+}

@@ -249,3 +249,62 @@ button {
     }
   }
 }
+.book-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 0 15%;
+    .book {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 10px;
+    padding: 5px;
+    border: 1px solid skyblue;
+    border-radius: 4px;
+    width: 250px;
+    height: 370px;
+    background-color: #ffacac;
+    }
+    img {
+      height: 200px;
+      width: auto;
+    }
+    .author {
+      font-style:italic;
+      font-size: 12px;
+      color: gray;
+    }
+    .title {
+      font-size: 16px;
+      color: black;
+    }
+    .price {
+      font-size: 19px;
+      color: red;
+      font-weight: bold;
+    }
+    .cat {
+      margin: 5px 0 16px 0;
+      padding: 4px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 30px;
+      height: 30px;
+      background-color: skyblue;
+      border-radius: 50%;
+      color: black;
+    }
+}
+.sorter {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  margin: 10px;
+  padding: 5px;
+  border: 1px solid skyblue;
+}

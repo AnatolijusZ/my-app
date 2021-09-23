@@ -1,46 +1,103 @@
 import React,  {useEffect, useState} from 'react';
 import axios from 'axios';
-import Todo from './Todo';
+import Knyga from './Knyga';
+import Sort from './Sort';
     function App() {
 
-        const [todos, setTodos]=useState([]);
+        const [books, setBooks]=useState([]);
+        const [cats, setCats]=useState([]);
+
+
+        useEffect (() => {
+            const bookCats = setCats(JSON.parse(localStorage.getItem('cats')))
+            if (bookCats !== null) {
+                setCats(bookCats);
+                return;
+            }
+            axios.get('https://in3.dev/knygos/types')
+            .then(function (response) {
+                console.log(response.data);
+                setCats(response.data);
+                localStorage.setItem('cats', JSON.stringify(response.data));
+            })
+        },[])
 
         useEffect (() => {
             console.log("Start");
-            axios.get('https://jsonplaceholder.typicode.com/todos')
+            axios.get('https://in3.dev/knygos/')
             .then(function (response) {
                 console.log(response.data);
-                setTodos(response.data);
+                const books = response.data;
+                books.sort((a, b) => {
+                    if(a.title > b.title) {
+                        return 1;
+                    }
+                    else if (a.title < b.title) {
+                        return -1;
+                    }
+                    else {
+                        return 0;
+                    }
+                })
+                setBooks(books);
             });
         },[]);
 
-       //const editStatus = (id, completed) => {
-       //     const todosCopy = todos.slice();
-       //     for(let i=0; i<todosCopy.length; i++) {
-       //         if(todosCopy[i].id === id){
-       //             todosCopy[i].completed = !completed;
-       //             break;
-       //         }
-       //     }
-       //     setTodos(todosCopy)
-        //}
-        const sniuriukasTodui = (id) => {
-            const todosCopy2 = todos.slice();
-            for(let i=0; i<todosCopy2.length; i++) {
-                if(id === todosCopy2[i].id){
-                    todosCopy2[i].completed = !todosCopy2[i].completed;
-                    break;
-                }
+        const makeSort = (dir) => {
+            const booksCopy = books.slice();
+            if(dir === 'priceAsc') {
+            booksCopy.sort((a, b) => a.price - b.price);
+            setBooks(booksCopy);
             }
-            setTodos(todosCopy2);
-            
-
+            else if(dir === 'priceDesc') {
+                booksCopy.sort((a, b) => b.price - a.price);
+                setBooks(booksCopy);
+        } else if (dir === 'titleAsc') {
+            booksCopy.sort((a, b) => {
+                if(a.title > b.title) {
+                    return 1;
+                }
+                else if (a.title < b.title) {
+                    return -1;
+                }
+                else {
+                    return 0;
+                }
+        });
+        setBooks(booksCopy);
+    }
+            else if (dir === 'titleDesc') {
+                booksCopy.sort((a, b) => {
+                    if(a.title > b.title) {
+                        return -1;
+                    }
+                    else if (a.title < b.title) {
+                        return 1;
+                    }
+                    else {
+                        return 0;
+                    }
+                });
+                setBooks(booksCopy);
+            }
         }
-    return (
-        <div className="todo-container">
-            {todos.map((todo)=>(<Todo key={todo.id} data={todo} sniuriukas={sniuriukasTodui}></Todo>))}
+            
+        const getCat = (id) => {
+            for (let i = 0; i < cats.length; i++) {
+                if (id === cats[i].id) {
+                    return cats[i].title;
+                }
+                
+            }
+            return '';
+        }
+        
+        return (<>
+            <Sort makeSort={makeSort}></Sort>
+        <div className="book-container">
+            {books.map((book)=>(<Knyga key={book.id} cat={getCat(book.id)} data={book}></Knyga>))}
         </div>
-    )
+    </>)
         
     }
 

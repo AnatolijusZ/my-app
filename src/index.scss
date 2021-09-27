@@ -308,3 +308,11 @@ button {
   padding: 5px;
   border: 1px solid skyblue;
 }
+a {
+  text-decoration: none;
+  color: darkcyan;
+  transition: all 0.3s;
+  &:hover {
+    color: darkgreen;
+  }
+}

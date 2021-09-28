@@ -12,7 +12,7 @@ function Zoo() {
             <h1>Welcome to the Jumanji</h1>
             <Switch>
                 <Route path={'/:id'}>
-                    <Animal></Animal>
+                    <Animal animals={animals}></Animal>
                 </Route>
                     <Route path='/'>
             <ul>

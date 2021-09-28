@@ -7,7 +7,9 @@ function TodoOne(props) {
     const {todoId} = useParams();
 
         if (props.todos.length === 0) {
-            return null;
+            return (
+                <h1>React is loading....</h1>
+            )
         }
 
     return (

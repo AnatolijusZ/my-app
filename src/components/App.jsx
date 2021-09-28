@@ -1,61 +1,38 @@
-import React,  {useEffect, useState} from 'react';
-import axios from 'axios';
-import Todo from './Todo';
-import TodoOne from './TodoOne'
-import { BrowserRouter as Router, Switch, Route, useParams } from 'react-router-dom';
-    function App() {
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+} from "react-router-dom";
+import Topics from "./Topics";
 
-        const [todos, setTodos]=useState([]);
-        //const {todoId} = useParams();
-
-        useEffect (() => {
-            console.log("Start");
-            axios.get('https://jsonplaceholder.typicode.com/todos')
-            .then(function (response) {
-                console.log(response.data);
-                setTodos(response.data);
-            });
-        },[]);
-
-       //const editStatus = (id, completed) => {
-       //     const todosCopy = todos.slice();
-       //     for(let i=0; i<todosCopy.length; i++) {
-       //         if(todosCopy[i].id === id){
-       //             todosCopy[i].completed = !completed;
-       //             break;
-       //         }
-       //     }
-       //     setTodos(todosCopy)
-        //}
-        const sniuriukasTodui = (id) => {
-            const todosCopy2 = todos.slice();
-            for(let i=0; i<todosCopy2.length; i++) {
-                if(id === todosCopy2[i].id){
-                    todosCopy2[i].completed = !todosCopy2[i].completed;
-                    break;
-                }
-            }
-            setTodos(todosCopy2);
-            
-
-        }
+export default function App() {
     return (
-        <Router>
-            <Switch>
-                <Route path={"/:todoId"}>
-                    <div className="todo-container">
-                    {<TodoOne todos={todos} sniuriukas={sniuriukasTodui}></TodoOne>}
-                    </div>
-                </Route>
-                <Route path="/">
-                    <div className="todo-container">
-                    {todos.map((todo)=>(<Todo key={todo.id} data={todo} sniuriukas={sniuriukasTodui}></Todo>))}
-                    </div>
-                </Route>
-            </Switch>
-        </Router>
-    )
-        
-    }
-
-export default App;
+      <Router>
+        <div>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/topics">Topics</Link>
+            </li>
+          </ul>
+  
+          <hr />
+  
+          <Switch>
+            <Route exact path="/">
+                <div>
+                    <h2>Home</h2>
+                </div>
+            </Route>
+            <Route path="/topics">
+              <Topics />
+            </Route>
+          </Switch>
+        </div>
+      </Router>
+    );
+  }

@@ -1,4 +1,3 @@
-import React,{useState} from 'react';
 
 function SmallAnimal({open, farmNumber, farm1, color, animal, id})  {
 

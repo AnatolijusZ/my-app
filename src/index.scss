@@ -316,3 +316,18 @@ a {
     color: darkgreen;
   }
 }
+
+.modal {
+  position: fixed;
+  top: 200px;
+  left: calc(50%- 150px);
+  background-color: white;
+  height: 200px;
+  width: 250px;
+  padding: 7px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border: 4px dashed greenyellow;
+}

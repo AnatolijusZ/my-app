@@ -1,49 +1,42 @@
-import { createContext, useState } from "react";
+import { useState } from "react";
 import Field from "./Field";
+import { ThemeContext, ThemeSelect } from "../Providers";
 
 const letters = ["L", "a", "b", "a","s"];
 
-export const ThemeContext = createContext({
-                color: 'aqua',
-                border: '1px solid blueviolet'
-});
+const theme = [
+    {
+        color: 'aqua',
+        border: '1px solid blueviolet'
+    },
+    {
+        color: 'firebrick',
+        border: '1px solid blueviolet'
+    },
+    {
+        color: 'aqua',
+        border: '1px solid firebrick'
+    }
+];
+
 
 function App() {
 
         
-        const [style, setStyle] = useState({
-                    color: 'aqua',
-                    border: '1px solid blueviolet'
-        })
+        const [style, setStyle] = useState(0)
         
         const changeTheme= t => {
-            let theme;
-            if (1 === t) {
-                theme = {
-                    color: 'aqua',
-                    border: '1px solid blueviolet'
-                }
+            setStyle(t);
             }
-            else  if (2 === t) {
-                theme = {
-                    color: 'firebrick',
-                    border: '1px solid blueviolet'
-                }
-            }
-            else if (3 === t) {
-                theme = {
-                    color: 'aqua',
-                    border: '1px solid firebrick'
-                }
-            }
-            setStyle(theme);
-        }
+        
     return ( <>
-        <ThemeContext.Provider value={style}>
-        <Field letters={letters}></Field>
-        <button onClick={() => changeTheme(1)}>Theme 1</button>
-        <button onClick={() => changeTheme(2)}>Theme 2</button>
-        <button onClick={() => changeTheme(3)}>Theme 3</button>
+        <ThemeContext.Provider value={theme}>
+            <ThemeSelect.Provider value={style}>
+                <Field letters={letters}></Field>
+                    <button onClick={() => changeTheme(0)}>Theme 1</button>
+                    <button onClick={() => changeTheme(1)}>Theme 2</button>
+                    <button onClick={() => changeTheme(2)}>Theme 3</button>
+            </ThemeSelect.Provider>
         </ThemeContext.Provider>
     </>);
 }

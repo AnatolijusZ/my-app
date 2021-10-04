@@ -1,63 +1,50 @@
-import React,  {useEffect, useReducer, useState} from 'react';
-import SmallAnimal from './SmallAnimalF';
-import farmReducer from '../Reducers/farmReducer';
-import Modal from './Modal';
-import { getAllAnimals, createAnimal, removeAnimal, changeAnimal, moveAnimal } from '../Actions';
+import { createContext, useState } from "react";
+import Field from "./Field";
 
+const letters = ["L", "a", "b", "a","s"];
 
-function App () {
+export const ThemeContext = createContext({
+                color: 'aqua',
+                border: '1px solid blueviolet'
+});
 
-    const [animals, animalDispatcher] = useReducer(farmReducer, []);
-    const [animalInput, setAnimalInput] = useState('');
-    const [open, setOpen] = useState(0);
+function App() {
 
-    useEffect(()=> {
-        animalDispatcher(getAllAnimals());
-    },[]);
-
-    const deleteAnimal = (id) => {
-       animalDispatcher(removeAnimal(id));
-       closeModal();
-    }
-    
-     const editAnimal = (id, color) => {
-        animalDispatcher(changeAnimal({id: id, color: color}));
-    }
-
-    const changeFarm = (id) => {
-       animalDispatcher(moveAnimal(id))
-    }
-
-    const animalInputHandler= (e) => {
-        setAnimalInput(e.target.value)
-        };
-
-    const openModal =(id) => {
-        setOpen(id);
-    }
-    
-    const closeModal =() => {
-        setOpen(0);
-    }
-    
+        
+        const [style, setStyle] = useState({
+                    color: 'aqua',
+                    border: '1px solid blueviolet'
+        })
+        
+        const changeTheme= t => {
+            let theme;
+            if (1 === t) {
+                theme = {
+                    color: 'aqua',
+                    border: '1px solid blueviolet'
+                }
+            }
+            else  if (2 === t) {
+                theme = {
+                    color: 'firebrick',
+                    border: '1px solid blueviolet'
+                }
+            }
+            else if (3 === t) {
+                theme = {
+                    color: 'aqua',
+                    border: '1px solid firebrick'
+                }
+            }
+            setStyle(theme);
+        }
     return ( <>
-        <div className="field">
-            <div className="farm">
-                <h1> Farm No. 1</h1>
-                {animals.map(b => <SmallAnimal open={openModal} farm1={b.farm1} farmNumber={1} key={b.id} id={b.id} color={b.color} animal={b.animal}/>)}
-            </div>
-            <div className="farm">
-                <h1> Farm No. 2</h1>
-                {animals.map(b => <SmallAnimal open={openModal} farm1={b.farm1} farmNumber={2} key={b.id} id={b.id} color={b.color} animal={b.animal}/>)}
-            </div>
-        </div>            
-                <div>
-                    <input type="text" value={animalInput} onChange={animalInputHandler}></input>
-                    <button className="input-button" onClick={() => animalDispatcher(createAnimal({animal: 'cow', animalInput: animalInput}))}>Add Cow</button>
-                    <button className="input-button" onClick={() => animalDispatcher(createAnimal({animal: 'sheep', animalInput: animalInput}))}>Add Sheep</button>
-                </div>
-                <Modal id={open} close={closeModal} destroy={deleteAnimal} change={changeFarm} edit={editAnimal}/>
-            </>);  
+        <ThemeContext.Provider value={style}>
+        <Field letters={letters}></Field>
+        <button onClick={() => changeTheme(1)}>Theme 1</button>
+        <button onClick={() => changeTheme(2)}>Theme 2</button>
+        <button onClick={() => changeTheme(3)}>Theme 3</button>
+        </ThemeContext.Provider>
+    </>);
 }
-
-export default App
+    export default App;

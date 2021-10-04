@@ -331,3 +331,22 @@ a {
   flex-direction: column;
   border: 4px dashed greenyellow;
 }
+.field {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  height: 100px;
+  width: 300px;
+  background-color: #f4f4f4;
+  border: 3px dashed royalblue;
+  padding: 10px;
+    span {
+      font-size: 25px;
+      font-weight: bold;
+      //color: firebrick;
+      //border: 1px solid blueviolet;
+      margin: 5px;
+      padding: 5px;
+    }
+}

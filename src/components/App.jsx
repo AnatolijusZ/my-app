@@ -1,43 +1,57 @@
-import { useState } from "react";
-import Field from "./Field";
-import { ThemeContext, ThemeSelect } from "../Providers";
-
-const letters = ["L", "a", "b", "a","s"];
-
-const theme = [
-    {
-        color: 'aqua',
-        border: '1px solid blueviolet'
-    },
-    {
-        color: 'firebrick',
-        border: '1px solid blueviolet'
-    },
-    {
-        color: 'aqua',
-        border: '1px solid firebrick'
-    }
-];
-
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import Post from "./Post";
+import NewPost from "./NewPost";
 
 function App() {
+  const [posts, setPosts] = useState([]);
 
-        
-        const [style, setStyle] = useState(0)
-        
-        const changeTheme= t => {
-            setStyle(t);
-            }
-        
-    return ( <>
-        <ThemeContext.Provider value={theme}>
-            <ThemeSelect.Provider value={style}>
-                <Field letters={letters}></Field>
-                    <button onClick={() => changeTheme(0)}>Theme 1</button>
-                    <button onClick={() => changeTheme(1)}>Theme 2</button>
-                    <button onClick={() => changeTheme(2)}>Theme 3</button>
-            </ThemeSelect.Provider>
-        </ThemeContext.Provider>
-    </>);
+  useEffect(() => {
+    axios
+      .get("http://localhost:3003/posts")
+      .then(function (response) {
+        console.log(response.data);
+        setPosts(response.data);
+      });
+  }, []);
+
+  const doDelete = (id) => {
+    axios
+      .delete("https://jsonplaceholder.typicode.com/posts/" + id, {})
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+  const doAdd = (data) => {
+    axios
+      .post("https://jsonplaceholder.typicode.com/posts/", data)
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+  const crud = {
+    delete: doDelete,
+  };
+  return (
+    <>
+      <div className="new-posts-container">
+        <NewPost add={doAdd}></NewPost>
+      </div>
+
+      <div className="posts-container">
+        {posts.map((post) => (
+          <Post key={post.id} data={post} crud={crud}></Post>
+        ))}
+      </div>
+    </>
+  );
 }
-    export default App;
+
+export default App;

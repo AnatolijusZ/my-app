@@ -1,8 +1,9 @@
-import React, { useState } from "react";
-
-function NewPost({ add }) {
+import { useState } from "react";
+function Modal({ id, crud }) {
+  const [editInput, setEditInput] = useState("");
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
+  const [open, setOpen] = useState();
 
   const controller = (e, i) => {
     if ("title" === i) {
@@ -13,15 +14,12 @@ function NewPost({ add }) {
     }
   };
 
-  const doAdd = () => {
-    const data = {
-      title: title,
-      body: body,
-    };
-    add(data);
-    setTitle("");
-    setBody("");
+  const editInputHandler = (e) => {
+    setEditInput(e.target.value);
   };
+  if (id === 0) {
+    return null;
+  }
 
   return (
     <>
@@ -41,13 +39,11 @@ function NewPost({ add }) {
           <textarea onChange={(e) => controller(e, "body")} value={body} />
         </div>
       </div>
-      <div className="new-post">
-        <button className="add" onClick={doAdd}>
-          Add
-        </button>
-      </div>
+      <button className="input-button-small" onClick={crud.close}>
+        X
+      </button>
     </>
   );
 }
 
-export default NewPost;
+export default Modal;
